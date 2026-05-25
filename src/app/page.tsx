@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle, ArrowRight, Truck } from "lucide-react";
 
@@ -16,13 +17,37 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children: React.React
 );
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const heroImages = ['/images/hero1.jpg', '/images/hero2.jpg', '/images/hero3.jpg'];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <main className="min-h-screen font-sans bg-darker">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden border-b-4 border-accent">
-        <div 
-          className="absolute inset-0 bg-[url('/images/1.png')] bg-cover bg-center bg-no-repeat opacity-50"
-        />
+        {/* Logo */}
+        <div className="absolute top-4 left-4 md:top-8 md:left-8 z-30">
+          <img 
+            src="/images/logo.jpg" 
+            alt="Suleiteng Auto Parts" 
+            className="w-20 md:w-32 h-auto object-contain bg-white p-1 md:p-2 industrial-border" 
+          />
+        </div>
+
+        {/* Background Carousel */}
+        {heroImages.map((img, index) => (
+          <div 
+            key={img}
+            className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ${currentSlide === index ? 'opacity-50' : 'opacity-0'}`}
+            style={{ backgroundImage: `url(${img})` }}
+          />
+        ))}
         <div className="absolute inset-0 bg-overlay"></div>
         <div className="relative z-10 text-center px-4 flex flex-col items-center">
           <motion.h1 
