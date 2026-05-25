@@ -34,9 +34,9 @@ export default function Home() {
         {/* Logo */}
         <div className="absolute top-4 left-4 md:top-8 md:left-8 z-30">
           <img 
-            src="/images/logo.jpg" 
+            src="/images/logo.png" 
             alt="Suleiteng Auto Parts" 
-            className="w-20 md:w-32 h-auto object-contain bg-white p-1 md:p-2 industrial-border" 
+            className="w-20 md:w-32 h-auto object-contain p-1 md:p-2" 
           />
         </div>
 
